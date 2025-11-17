@@ -315,7 +315,7 @@ async def predict_api(
             user_comment=None
         )
         
-        #update_db_status(True)
+        update_db_status(True)
         # 📝 Retourne objet ORM PredictionFeedback avec .id auto-généré
         
         # ─────────────────────────────────────────────────────────────────────
@@ -636,6 +636,8 @@ async def health_check(db: Session = Depends(get_db)):
         db.execute(text("SELECT 1"))
         # Query minimale (pas de table nécessaire)
         # Alternative : db.execute(text("SELECT version()")) pour info version
+        if update_db_status:
+            update_db_status(True)
         
     except Exception as e:
         db_status = f"error: {str(e)}"
