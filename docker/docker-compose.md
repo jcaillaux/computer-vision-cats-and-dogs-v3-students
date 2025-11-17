@@ -1,3 +1,6 @@
+# DOCKER COMPOSE - STACK MLOps COMPLET
+
+```yaml
 # ═══════════════════════════════════════════════════════════════════════════════
 # 🎓 DOCKER COMPOSE - STACK MLOps COMPLET
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -557,3 +560,5 @@ networks:
 # NETTOYAGE
 #   docker compose down --rmi all           # Supprime aussi les images
 #   docker system prune -a --volumes        # ⚠️ Nettoie TOUT Docker (pas que ce projet)
+
+```
