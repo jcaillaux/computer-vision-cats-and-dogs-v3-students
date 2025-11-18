@@ -12,6 +12,8 @@ sys.path.insert(0, str(ROOT_DIR))
 # Import de la configuration
 from config.settings import DB_URL, DB_URL_MASKED
 
+print("DATABASE Loaded", DB_URL)
+
 # Configuration encodage pour Windows
 if sys.platform.startswith('win'):
     os.environ['PYTHONIOENCODING'] = 'utf-8'

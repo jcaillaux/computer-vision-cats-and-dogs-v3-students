@@ -1,7 +1,7 @@
 from fastapi import APIRouter, File, UploadFile, HTTPException, Depends, Request, Form
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from src.monitoring.prometheus_metrics import track_inference_time
+from src.monitoring.prometheus_metrics import track_inference_time, track_feedback
 from sqlalchemy.orm import Session
 import sys
 from pathlib import Path
@@ -55,12 +55,11 @@ ENABLE_DISCORD = os.getenv('DISCORD_WEBHOOK_URL') is not None
 # ─────────────────────────────────────────────────────────────────────────────
 # 💡 PATTERN : Initialiser à None puis assigner conditionnellement
 # Alternative : wrapper dans try/except à chaque usage (plus verbeux)
-alert_high_latency = None
-alert_database_disconnected = None
-notifier = None
-track_prediction = None
-track_feedback = None
-update_db_status = None
+#alert_high_latency = None
+#alert_database_disconnected = None
+#notifier = None
+#track_prediction = None
+#update_db_status = None
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 📊 IMPORT PROMETHEUS (si activé)
@@ -403,6 +402,8 @@ async def update_feedback(
                     detail="user_feedback doit être 0 ou 1"
                 )
             record.user_feedback = user_feedback
+
+            track_feedback(user_feedback)
         
         if user_comment:
             record.user_comment = user_comment
