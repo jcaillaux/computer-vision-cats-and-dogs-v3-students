@@ -1,7 +1,7 @@
 [project]
 name = "computer-vision-cats-and-dogs-v3"
-version = "0.1.0"
-description = "Add your description here"
+version = "3.0.0"
+description = "Classification d'images de chien et chats par CNN."
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
