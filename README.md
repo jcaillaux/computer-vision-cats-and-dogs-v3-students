@@ -48,12 +48,14 @@
 ### 🛠️ Stack technologique complète
 
 **Core Application** (conservé V2)
-- **IA** : Keras 3 + TensorFlow (CNN)
+- **Dévelopement IA** : Keras 3 + TensorFlow (CNN)
+- **Inférence IA** : ONNXRuntime 
 - **API** : FastAPI avec authentification
 - **Database** : PostgreSQL + SQLAlchemy
 - **Frontend** : Jinja2 + Bootstrap 5
 
 **🆕 MLOps Stack V3**
+- **Gestion des dépendances** : Astral uv
 - **Containerisation** : Docker + Docker Compose
 - **Metrics** : Prometheus + prometheus-client
 - **Dashboards** : Grafana + provisioning YAML
@@ -196,6 +198,8 @@ Notifications temps réel via webhook :
 
 - Docker 24+ et Docker Compose 2+
 - Git
+- Make
+- (Optionel) Astral uv pour développement local
 - (Optionnel) VPS pour déploiement production
 
 ### Installation locale
@@ -204,13 +208,10 @@ Notifications temps réel via webhook :
 git clone https://github.com/votre-username/computer-vision-cats-and-dogs-v3.git
 cd computer-vision-cats-and-dogs-v3
 
-# 2. Configurer les variables d'environnement
-cp .env.example .env
-# Éditer .env avec vos valeurs (DB_PWD, API_TOKEN, DISCORD_WEBHOOK_URL, etc.)
+# 2. Éditer .env avec vos valeurs (DB_PWD, API_TOKEN, DISCORD_WEBHOOK_URL, etc.)
 
 # 3. Lancer la stack complète
-cd docker
-docker compose up -d
+make up
 
 # 4. Vérifier les services
 docker compose ps
@@ -218,25 +219,25 @@ docker compose ps
 
 ### Accès aux services
 
-- **Application** : http://localhost:8000
-- **API Docs** : http://localhost:8000/docs
-- **Monitoring V2** : http://localhost:8000/monitoring (Plotly)
-- **Prometheus** : http://localhost:9090
-- **Grafana** : http://localhost:3000 (admin/admin)
+- **Application** : http://localhost:8005
+- **API Docs** : http://localhost:8005/docs
+- **Monitoring V2** : http://localhost:8005/monitoring (Plotly)
+- **Prometheus** : http://localhost:9095
+- **Grafana** : http://localhost:3005 (admin/admin)
 
 ### Premier test
 ```bash
 # Healthcheck
-curl http://localhost:8000/health
+curl http://localhost:8005/health
 
 # Prédiction (avec token)
-curl -X POST http://localhost:8000/api/predict \
+curl -X POST http://localhost:8005/api/predict \
   -H "Authorization: Bearer VOTRE_TOKEN" \
   -F "file=@test_image.jpg" \
   -F "rgpd_consent=true"
 
 # Métriques Prometheus
-curl http://localhost:8000/metrics
+curl http://localhost:8005/metrics
 ```
 
 ## 🔧 Configuration
@@ -322,8 +323,12 @@ docker compose down && docker compose up -d --build
 ### Métriques clés
 
 **Performance** :
+- Connection Postgres
 - Latence P95 < 2s (SLA)
-- Taux de succès > 99%
+- Taux de confiance des prédictions (< 60%)
+- Nombres de requêtes < 10000
+- Taux de feedback négatifs (> 50 % )
+- Taux de prédiction de la cible majoritaire (> 80%)  
 
 **Business** :
 - Volume prédictions

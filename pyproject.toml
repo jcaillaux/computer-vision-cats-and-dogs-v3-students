@@ -38,7 +38,6 @@ training = [
     "pandas>=2.3.3",
     "onnx>=1.16.0"
 ]
-
 production = [
     {include-group = "monitoring"},
     {include-group = "inference"}
