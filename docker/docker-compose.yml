@@ -2,7 +2,7 @@ services:
   postgres:
     image: postgres:15-alpine
     
-    container_name: cv_postgres_${STUDENT_ID:-student01}
+    container_name: cv_postgres_${STUDENT_ID:-student05}
     
     restart: unless-stopped
     
